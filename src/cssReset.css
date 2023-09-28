@@ -1,4 +1,10 @@
+@font-face {
+    font-family: "sans";
+    src: url("./assets/fonts/IranianSans.ttf");
+}
+
 * {
     padding:0;
     margin:0;
+    font-family: sans !important;
 }
