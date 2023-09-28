@@ -19,6 +19,8 @@ import {
 import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+
 interface IRegisterProps {}
 
 const CustomBox = styled(Box)({
@@ -157,8 +159,20 @@ const Register: FC<IRegisterProps> = () => {
             }
           />
           <ReCAPTCHA ref={recaptcha} sitekey={import.meta.env.VITE_SITE_KEY} />
-          <Button type="submit" variant="contained" disabled={!formik.isValid}>
-            ثبت نام
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={
+              !formik.isValid ||
+              isEmailAvailable.isLoading ||
+              createUser.isLoading
+            }
+          >
+            {isEmailAvailable.isLoading || createUser.isLoading ? (
+              <HourglassBottomIcon />
+            ) : (
+              "ثبت نام"
+            )}
           </Button>
           <Link href="login">
             <Typography>صفحه ورود</Typography>

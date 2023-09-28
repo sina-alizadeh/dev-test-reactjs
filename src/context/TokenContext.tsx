@@ -11,9 +11,10 @@ export const TokenContext = createContext<ITokenContext | undefined>(undefined);
 
 interface ITokenProvider {
   children: JSX.Element;
+  authHandler: (iAuth: boolean) => void;
 }
 
-const TokenProvider: FC<ITokenProvider> = ({ children }) => {
+const TokenProvider: FC<ITokenProvider> = ({ children, authHandler }) => {
   const token =
     getItem("token") == false || getItem("token") == null
       ? ""
@@ -21,12 +22,15 @@ const TokenProvider: FC<ITokenProvider> = ({ children }) => {
   const [tkn, setTkn] = useState<string>(token);
 
   const logIn = (token: string) => {
+    console.log("token", token);
     setTkn(token);
+    authHandler(true);
     localStorage.setItem("token", token);
   };
 
   const logOut = () => {
     setTkn("");
+    authHandler(false);
     localStorage.removeItem("token");
   };
 

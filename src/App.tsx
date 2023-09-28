@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext, useState } from "react";
 import "./cssReset.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -12,7 +12,7 @@ import { Dashboard } from "./screen/Dashboard/Dashboard";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { TokenProvider } from "./context/TokenContext";
+import { TokenContext, TokenProvider } from "./context/TokenContext";
 const theme = createTheme({
   direction: "rtl",
 });
@@ -24,8 +24,15 @@ const cacheRtl = createCache({
 
 const queryClient = new QueryClient();
 const App: FC = () => {
+  const tokenCtx = useContext(TokenContext);
+  const [isAuthed, setIsAuthed] = useState<boolean>(Boolean(tokenCtx?.token));
+
+  const authHandler = (isAuth: boolean) => {
+    setIsAuthed(isAuth);
+  };
+
   return (
-    <TokenProvider>
+    <TokenProvider authHandler={authHandler}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <CacheProvider value={cacheRtl}>
@@ -37,7 +44,7 @@ const App: FC = () => {
                   path="/"
                   index
                   element={
-                    <ProtectedRoute hasToken={true}>
+                    <ProtectedRoute hasToken={isAuthed}>
                       <Dashboard />
                     </ProtectedRoute>
                   }

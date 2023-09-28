@@ -16,7 +16,7 @@ import { TokenContext } from "../../context/TokenContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 interface ILoginProps {}
 
 const CustomBox = styled(Box)({
@@ -111,8 +111,12 @@ const Login: FC<ILoginProps> = () => {
             helperText={formik.touched.password && formik.errors.password}
           />
           <ReCAPTCHA ref={recaptcha} sitekey={import.meta.env.VITE_SITE_KEY} />
-          <Button type="submit" variant="contained" disabled={!formik.isValid}>
-            ورود
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={!formik.isValid || loginuser.isLoading}
+          >
+            {loginuser.isLoading ? <HourglassBottomIcon /> : "ورود"}
           </Button>
           <Link href="/register">
             <Typography>صفحه ثبت نام</Typography>

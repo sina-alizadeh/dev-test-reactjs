@@ -29,6 +29,16 @@ const loginUser = async (data: {
   return await axios.post(mainUrl + "auth/login", data);
 };
 
+const getUserById = async (
+  id: number
+): Promise<AxiosResponse<TCreateUserResponse>> => {
+  return await axios.post(mainUrl + `users/${id}`);
+};
+
+export const useGetUserById = () => {
+  return useMutation(getUserById);
+};
+
 export const useCreateUser = () => {
   return useMutation(createUser);
 };
