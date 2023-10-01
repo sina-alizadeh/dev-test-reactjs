@@ -34,7 +34,7 @@ const Dashboard: FC = (props: Props) => {
   const token = useContext(TokenContext);
   const getUserById = useGetUserById();
   useEffect(() => {
-    const decode = token?.token && jwtDecode(token?.token);
+    const decode = token?.token && (jwtDecode(token?.token) as any);
     console.log("decode", decode);
     getUserById.mutate(decode.sub, {
       onSuccess: (data) => {
