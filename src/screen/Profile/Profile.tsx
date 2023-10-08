@@ -99,6 +99,7 @@ const Profile: FC = () => {
                 <UploadButton
                   options={options}
                   onComplete={(files) => {
+                    console.log("uploadddd", files);
                     formik.setFieldValue("avatar", files[0].fileUrl);
                   }}
                 >
