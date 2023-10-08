@@ -15,6 +15,11 @@ import { useUploadFile } from "../../core/services/api/file.api";
 import { MuiFileInput } from "mui-file-input";
 import { UploadButton } from "@bytescale/upload-widget-react";
 import { TokenContext } from "../../context/TokenContext";
+import { v4 as uuidv4 } from "uuid";
+const options = {
+  apiKey: import.meta.env.VITE_UPLOAD_APIKEY,
+  maxFileCount: 1,
+};
 
 const Profile: FC = () => {
   const tokenCtx = useContext(TokenContext);
@@ -29,11 +34,6 @@ const Profile: FC = () => {
     id: 0,
     password: "",
   });
-
-  const options = {
-    apiKey: import.meta.env.VITE_UPLOAD_APIKEY,
-    maxFileCount: 1,
-  };
 
   useEffect(() => {
     getAuthUser.mutate(undefined, {
@@ -97,10 +97,27 @@ const Profile: FC = () => {
                   sx={{ width: "100px", height: "100px" }}
                 />
                 <UploadButton
-                  options={options}
+                  options={{
+                    path: {
+                      fileNameVariablesEnabled: false,
+                    },
+                    // onPreUpload(file: File) {
+                    // return {
+                    // transformedFile: {
+                    // ...file,
+                    // name: file.name.replace(" ", "_"),
+                    // },
+                    // errorMessage: "",
+                    // };
+                    // },
+                    ...options,
+                  }}
+                  onUpdate={(e) => {
+                    console.log("uploadevent", e);
+                  }}
                   onComplete={(files) => {
                     console.log("uploadddd", files);
-                    formik.setFieldValue("avatar", files[0].fileUrl);
+                    formik.setFieldValue("avatar", new URL(files[0].fileUrl));
                   }}
                 >
                   {({ onClick }) => (
