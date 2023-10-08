@@ -13,6 +13,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { TokenContext, TokenProvider } from "./context/TokenContext";
+import { PageNotFound } from "./screen/PageNotFound/PageNotFound";
+import { Profile } from "./screen/Profile/Profile";
 const theme = createTheme({
   direction: "rtl",
 });
@@ -41,6 +43,14 @@ const App: FC = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute hasToken={isAuthed}>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/"
                   index
                   element={
@@ -49,6 +59,7 @@ const App: FC = () => {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
               <Toaster />
             </ThemeProvider>

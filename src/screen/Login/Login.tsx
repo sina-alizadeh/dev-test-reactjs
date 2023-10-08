@@ -17,16 +17,9 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+import { CustomBox } from "../../components/common/CustomBox";
+import { Loading } from "../../components/common/Loading";
 interface ILoginProps {}
-
-const CustomBox = styled(Box)({
-  width: "100%",
-  minHeight: "100vh",
-  background: "url(" + RegBac + ")",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
 
 const LoginBox = styled(Paper)({
   width: "400px",
@@ -56,14 +49,14 @@ const Login: FC<ILoginProps> = () => {
     validationSchema: loginValidationSchema,
     onSubmit: (values) => {
       // api call
-      console.log("ref", recaptcha.current);
-      if (recaptcha.current == undefined) return;
-      const captchaValue = recaptcha.current.getValue();
-      console.log("captcha", captchaValue);
-      if (!captchaValue) {
-        toast.error("کپچا نامعتبر است.");
-        return;
-      }
+      // console.log("ref", recaptcha.current);
+      // if (recaptcha.current == undefined) return;
+      // const captchaValue = recaptcha.current.getValue();
+      // console.log("captcha", captchaValue);
+      // if (!captchaValue) {
+      // toast.error("کپچا نامعتبر است.");
+      // return;
+      // }
       loginuser.mutate(
         {
           email: values.email,
@@ -71,7 +64,7 @@ const Login: FC<ILoginProps> = () => {
         },
         {
           onSuccess: (value) => {
-            console.log(value);
+            // console.log(value);
             const accessToken = value.data.access_token;
             tokenCtx?.logIn(accessToken);
             toast.success("خوش آمدید.");
@@ -79,12 +72,12 @@ const Login: FC<ILoginProps> = () => {
           },
         }
       );
-      console.log(values);
+      // console.log(values);
     },
   });
 
   return (
-    <CustomBox>
+    <CustomBox sx={{ background: "url(" + RegBac + ")" }}>
       <form onSubmit={formik.handleSubmit}>
         <LoginBox elevation={4}>
           <Typography>ورود</Typography>
@@ -116,7 +109,7 @@ const Login: FC<ILoginProps> = () => {
             variant="contained"
             disabled={!formik.isValid || loginuser.isLoading}
           >
-            {loginuser.isLoading ? <HourglassBottomIcon /> : "ورود"}
+            {loginuser.isLoading ? <Loading /> : "ورود"}
           </Button>
           <Link href="/register">
             <Typography>صفحه ثبت نام</Typography>

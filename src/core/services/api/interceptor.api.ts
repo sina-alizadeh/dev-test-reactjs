@@ -24,8 +24,8 @@ export function getJwt() {
   return getItem("token");
 }
 
-function setJwt(jwt: string | boolean | null) {
-  axios.defaults.headers.common["Autorization"] = "Bearer " + jwt;
+export function setJwt(jwt: string | boolean | null) {
+  axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
 }
 
 export default {

@@ -18,6 +18,19 @@ export type TCreateUserResponse = {
   id: number;
 };
 
+export type TUpdateUser = {
+  email: string;
+  name: string;
+  avatar: string;
+  id: number;
+  password: string;
+};
+
+export type TUserDetails = TCreateUserResponse & {
+  creationAt: string;
+  updateAt: string;
+};
+
 export type TLoginUser = {
   access_token: string;
   refresh_token: string;

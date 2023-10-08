@@ -4,7 +4,9 @@ import {
   TCreateUserResponse,
   TIsEmailAvailableResponse,
   TLoginUser,
+  TUpdateUser,
   TUser,
+  TUserDetails,
 } from "../../models/user.model";
 import { AxiosResponse } from "axios";
 
@@ -29,14 +31,30 @@ const loginUser = async (data: {
   return await axios.post(mainUrl + "auth/login", data);
 };
 
-const getUserById = async (
-  id: number
-): Promise<AxiosResponse<TCreateUserResponse>> => {
-  return await axios.post(mainUrl + `users/${id}`);
+const getAllUsers = async (): Promise<AxiosResponse<Array<TUserDetails>>> => {
+  return await axios.get(mainUrl + "users");
 };
 
-export const useGetUserById = () => {
-  return useMutation(getUserById);
+const getAuthUser = async (): Promise<AxiosResponse<TCreateUserResponse>> => {
+  return await axios.get(mainUrl + `auth/profile`);
+};
+
+const updateUser = async (
+  data: TUpdateUser & { id: number }
+): Promise<AxiosResponse<TCreateUserResponse>> => {
+  return await axios.put(mainUrl + `users/${data.id}`, data);
+};
+
+export const useUpdateUser = () => {
+  return useMutation(updateUser);
+};
+
+export const useGetAllUsers = () => {
+  return useMutation(getAllUsers);
+};
+
+export const useGetAuthUser = () => {
+  return useMutation(getAuthUser);
 };
 
 export const useCreateUser = () => {

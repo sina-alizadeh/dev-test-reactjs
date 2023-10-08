@@ -20,17 +20,10 @@ import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+import { CustomBox } from "../../components/common/CustomBox";
+import { Loading } from "../../components/common/Loading";
 
 interface IRegisterProps {}
-
-const CustomBox = styled(Box)({
-  width: "100%",
-  minHeight: "100vh",
-  background: "url(" + RegBac + ")",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
 
 const RegisterBox = styled(Paper)({
   width: "400px",
@@ -62,14 +55,14 @@ const Register: FC<IRegisterProps> = () => {
     validateOnBlur: true,
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
-      console.log("ref", recaptcha.current);
-      if (recaptcha.current == undefined) return;
-      const captchaValue = recaptcha.current.getValue();
-      console.log("captcha", captchaValue);
-      if (!captchaValue) {
-        toast.error("کپچا نامعتبر است.");
-        return;
-      }
+      // console.log("ref", recaptcha.current);
+      // if (recaptcha.current == undefined) return;
+      // const captchaValue = recaptcha.current.getValue();
+      // console.log("captcha", captchaValue);
+      // if (!captchaValue) {
+      //   toast.error("کپچا نامعتبر است.");
+      //   return;
+      // }
       isEmailAvailable.mutate(values.email, {
         onError: () => {
           toast.error("کپچا نامعتبر است.");
@@ -89,7 +82,7 @@ const Register: FC<IRegisterProps> = () => {
             createUser.mutate(user, {
               onSuccess: (user) => {
                 toast.success("حساب کاربری ایجاد شد.");
-                console.log("user", user);
+                // console.log("user", user);
                 // redirect to login
                 navigate("/login");
               },
@@ -105,7 +98,7 @@ const Register: FC<IRegisterProps> = () => {
   });
 
   return (
-    <CustomBox>
+    <CustomBox sx={{ background: "url(" + RegBac + ")" }}>
       <form onSubmit={formik.handleSubmit}>
         <RegisterBox elevation={4}>
           <Typography>ثبت نام</Typography>
@@ -169,7 +162,7 @@ const Register: FC<IRegisterProps> = () => {
             }
           >
             {isEmailAvailable.isLoading || createUser.isLoading ? (
-              <HourglassBottomIcon />
+              <Loading />
             ) : (
               "ثبت نام"
             )}
