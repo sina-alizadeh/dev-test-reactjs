@@ -1,6 +1,5 @@
 import React, { FC, useRef } from "react";
 import {
-  Box,
   Button,
   Link,
   Paper,
@@ -19,7 +18,6 @@ import {
 import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import { CustomBox } from "../../components/common/CustomBox";
 import { Loading } from "../../components/common/Loading";
 
@@ -56,13 +54,13 @@ const Register: FC<IRegisterProps> = () => {
     validationSchema: registerValidationSchema,
     onSubmit: (values) => {
       // console.log("ref", recaptcha.current);
-      // if (recaptcha.current == undefined) return;
-      // const captchaValue = recaptcha.current.getValue();
+      if (recaptcha.current == undefined) return;
+      const captchaValue = recaptcha.current.getValue();
       // console.log("captcha", captchaValue);
-      // if (!captchaValue) {
-      //   toast.error("کپچا نامعتبر است.");
-      //   return;
-      // }
+      if (!captchaValue) {
+        toast.error("کپچا نامعتبر است.");
+        return;
+      }
       isEmailAvailable.mutate(values.email, {
         onError: () => {
           toast.error("کپچا نامعتبر است.");

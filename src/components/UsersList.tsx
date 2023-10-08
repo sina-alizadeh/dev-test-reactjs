@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import { TCreateUserResponse, TUserDetails } from "../core/models/user.model";
+import { TUserDetails } from "../core/models/user.model";
 import { useGetAllUsers } from "../core/services/api/user.api";
 import { Box, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { format } from "date-fns-jalali";
 import { Loading } from "./common/Loading";
-import Avatar from "./common/Avatar";
+import { Avatar } from "./common/Avatar";
 
 const columns: Array<GridColDef> = [
   {

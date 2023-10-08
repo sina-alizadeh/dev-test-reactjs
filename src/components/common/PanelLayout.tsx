@@ -1,3 +1,4 @@
+import React, { FC, useContext, useEffect, useState } from "react";
 import {
   Toolbar,
   Typography,
@@ -13,17 +14,9 @@ import {
   AppBar,
   IconButton,
 } from "@mui/material";
-import React, {
-  FC,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
 import { TUser } from "../../core/models/user.model";
 import { TokenContext } from "../../context/TokenContext";
 import { useGetAuthUser } from "../../core/services/api/user.api";
-import jwtDecode from "jwt-decode";
 import { Loading } from "./Loading";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";

@@ -1,6 +1,5 @@
 import React, { FC, useContext, useRef } from "react";
 import {
-  Box,
   Button,
   Link,
   Paper,
@@ -16,9 +15,9 @@ import { TokenContext } from "../../context/TokenContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import { CustomBox } from "../../components/common/CustomBox";
 import { Loading } from "../../components/common/Loading";
+
 interface ILoginProps {}
 
 const LoginBox = styled(Paper)({
@@ -50,13 +49,13 @@ const Login: FC<ILoginProps> = () => {
     onSubmit: (values) => {
       // api call
       // console.log("ref", recaptcha.current);
-      // if (recaptcha.current == undefined) return;
-      // const captchaValue = recaptcha.current.getValue();
+      if (recaptcha.current == undefined) return;
+      const captchaValue = recaptcha.current.getValue();
       // console.log("captcha", captchaValue);
-      // if (!captchaValue) {
-      // toast.error("کپچا نامعتبر است.");
-      // return;
-      // }
+      if (!captchaValue) {
+        toast.error("کپچا نامعتبر است.");
+        return;
+      }
       loginuser.mutate(
         {
           email: values.email,

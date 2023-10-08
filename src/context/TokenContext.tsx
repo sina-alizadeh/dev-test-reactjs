@@ -1,4 +1,4 @@
-import { createContext, FC, Fragment, useEffect, useState } from "react";
+import { createContext, FC, Fragment, useState } from "react";
 import { getItem } from "../core/services/storage/storage";
 import { setJwt } from "../core/services/api/interceptor.api";
 

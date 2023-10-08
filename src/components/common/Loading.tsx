@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 import { styled } from "@mui/material";
 
 const Loading = styled(CircularProgress)({

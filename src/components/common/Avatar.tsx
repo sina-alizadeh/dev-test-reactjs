@@ -22,4 +22,4 @@ const Avatar: FC<IAvatarProps> = ({ src, sx, onClick }) => {
   );
 };
 
-export default Avatar;
+export { Avatar };

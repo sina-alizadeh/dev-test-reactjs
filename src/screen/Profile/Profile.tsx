@@ -9,13 +9,11 @@ import {
   useUpdateUser,
 } from "../../core/services/api/user.api";
 import { profileValidationSchema } from "../../core/validation/profileValidationSchema";
-import Avatar from "../../components/common/Avatar";
+import { Avatar } from "../../components/common/Avatar";
 import { Loading } from "../../components/common/Loading";
-import { useUploadFile } from "../../core/services/api/file.api";
-import { MuiFileInput } from "mui-file-input";
 import { UploadButton } from "@bytescale/upload-widget-react";
 import { TokenContext } from "../../context/TokenContext";
-import { v4 as uuidv4 } from "uuid";
+
 const options = {
   apiKey: import.meta.env.VITE_UPLOAD_APIKEY,
   maxFileCount: 1,
@@ -101,22 +99,9 @@ const Profile: FC = () => {
                     path: {
                       fileNameVariablesEnabled: false,
                     },
-                    // onPreUpload(file: File) {
-                    // return {
-                    // transformedFile: {
-                    // ...file,
-                    // name: file.name.replace(" ", "_"),
-                    // },
-                    // errorMessage: "",
-                    // };
-                    // },
                     ...options,
                   }}
-                  onUpdate={(e) => {
-                    console.log("uploadevent", e);
-                  }}
                   onComplete={(files) => {
-                    console.log("uploadddd", files);
                     formik.setFieldValue("avatar", new URL(files[0].fileUrl));
                   }}
                 >
